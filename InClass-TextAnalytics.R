@@ -77,3 +77,44 @@ str_split(string = metadata1,
 breaks = str_locate(emails, pattern = "\n\n")
 metadata = str_sub(emails, start = 1, end = breaks[,1] )
 body = str_sub(emails, start = breaks[,2])
+
+### Handout 2
+
+#1.
+
+fruit = c("apple","banana","pear","pineapple")
+
+#2. regular expression
+
+str_detect(fruit,"a")
+str_detect(fruit,pattern = "^a")
+str_detect(fruit, pattern = "a$")
+str_detect(fruit, "[aeiou]")
+str_detect(fruit, "[a-d]")
+
+# detect a string that starts with "a" and ends with "e"
+str_detect(fruit, pattern = "^a[a-z]e$") 
+# expect to have three characters starts with a, a-z in the middle, and e at last
+
+#3.
+str_detect(fruit, pattern = "^a[a-z]*e$")
+
+#4.
+phone = c("213 740 4826","213-740-4826","213.740.4826","(213) 740-4826996")
+parser = "[0-9]{3}[ -.][0-9]{3}[ -.][0-9]{4}" # repeat 6 times still align with 4 times
+parser1 = "[(]?[0-9]{3}[)]?[ -.][0-9]{3}[ -.][0-9]{4}\\b" # \\b constrain to digit up to 4
+#()taking as a grouping function, so add [] to let it become a string
+str_detect(phone, parser)
+
+#5.
+cat(body[10])
+cat(body[18])
+
+str_extract(string = body, pattern = parser )
+
+
+#6.
+parser2 = "[0-9]{5}(-[0-9]{4})?"
+#(): use it to group
+zip = c("90028","90028-0809")
+str_detect(zip,pattern = parser2)
